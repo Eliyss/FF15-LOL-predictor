@@ -32,7 +32,5 @@ def getMatchupWinRate(champ, opponent, role):
 
     return 50.00
 
-
-
 print(getMatchupWinRate("Annie", "Aatrox", "Middle"))
 
