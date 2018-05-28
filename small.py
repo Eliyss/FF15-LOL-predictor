@@ -2,7 +2,9 @@ import requests
 import pandas as pd
 import requests_cache
 import numpy as np
-requests_cache.install_cache('amazon3', backend='sqlite', expire_after=7200)
+import champions
+
+requests_cache.install_cache('riot_seed_data', backend='sqlite', expire_after=7200)
 
 top, jg, mid, adc, supp = [], [], [], [], []
 
@@ -20,15 +22,15 @@ for j in range(1,11):
         valid = True
         for k in range(5):
             if (page['matches'][i]['participants'][k]['timeline']['lane'] == 'TOP'):
-                team[0] = page['matches'][i]['participants'][k]['championId']
+                team[0] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['lane'] == 'JUNGLE'):
-                team[1] = page['matches'][i]['participants'][k]['championId']
+                team[1] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['lane'] == 'MIDDLE'):
-                team[2] = page['matches'][i]['participants'][k]['championId']
+                team[2] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['role'] == 'DUO_CARRY'):
-                team[3] = page['matches'][i]['participants'][k]['championId']
+                team[3] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['role'] == 'DUO_SUPPORT'):
-                team[4] = page['matches'][i]['participants'][k]['championId']
+                team[4] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
         
         for k in range(5):
             if (team[k] == 0):
@@ -47,15 +49,15 @@ for j in range(1,11):
         valid = True
         for k in range(5, 10):
             if (page['matches'][i]['participants'][k]['timeline']['lane'] == 'TOP'):
-                team[0] = page['matches'][i]['participants'][k]['championId']
+                team[0] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['lane'] == 'JUNGLE'):
-                team[1] = page['matches'][i]['participants'][k]['championId']
+                team[1] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['lane'] == 'MIDDLE'):
-                team[2] = page['matches'][i]['participants'][k]['championId']
+                team[2] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['role'] == 'DUO_CARRY'):
-                team[3] = page['matches'][i]['participants'][k]['championId']
+                team[3] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
             elif (page['matches'][i]['participants'][k]['timeline']['role'] == 'DUO_SUPPORT'):
-                team[4] = page['matches'][i]['participants'][k]['championId']
+                team[4] = convertIdtoChamp(page['matches'][i]['participants'][k]['championId'])
         
         for k in range(5):
             if (team[k] == 0):
@@ -80,4 +82,4 @@ df = pd.DataFrame(d)
 
 print(df)
 
-df.to_csv('roles.csv')
+df.to_csv('roles2.csv')
